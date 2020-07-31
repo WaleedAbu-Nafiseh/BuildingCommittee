@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.buildingcommittee.Data.API.ApiPlaceHolder;
 import com.example.buildingcommittee.Data.Post;
+import com.example.buildingcommittee.Data.User;
 import com.example.buildingcommittee.R;
 
 import java.util.List;
@@ -44,28 +45,28 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void callGetPosts(){
-        retrofit = new Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
+        retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.179:3000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiPlaceHolder apiPlaceHolder =retrofit.create(ApiPlaceHolder.class);
-        Call<List<Post>> call = apiPlaceHolder.getPosts();
-        call.enqueue(new Callback<List<Post>>() {
+        Call<List<User>> call = apiPlaceHolder.getUsers();
+        call.enqueue(new Callback<List<User>>() {
             @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                 if (!response.isSuccessful()){
                     Toast.makeText(getApplicationContext()," Error Code from server is "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                List<Post> posts= response.body();
-                for (Post post:posts){
-                    Log.i("Answer",post.getId()+" : is the ID");
+                List<User> posts= response.body();
+                for (User user:posts){
+                    Log.i("Answer",user.getId()+" : is the ID");
 
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
+            public void onFailure(Call<List<User>> call, Throwable t) {
                 Log.e("onFailure",t.getMessage());
             }
         });

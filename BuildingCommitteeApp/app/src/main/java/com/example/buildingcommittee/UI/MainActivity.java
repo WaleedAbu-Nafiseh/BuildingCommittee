@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext()," Error Code from server is "+response.code(),Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+    
                 List<User> posts= response.body();
                 for (User user:posts){
                     Log.i("Answer",user.getId()+" : is the ID");

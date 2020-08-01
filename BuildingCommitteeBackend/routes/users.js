@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
   }];
 
   
-  res.send(user);
+  res.send([]);
 });
 
 module.exports = router;

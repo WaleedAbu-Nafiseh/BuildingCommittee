@@ -18,6 +18,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+var database = require('./routes/db');
+
+module.exports.getCats = function(req, res) {
+    // async connection to database
+    database().then(function(connection){
+        // query database 
+        connection.query('SELECT * FROM `cats`', function(error, results, fields) {
+            if (error) {
+                console.log(error);
+                return;
+            }
+            res.send(results);
+        });
+    });
+};
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
